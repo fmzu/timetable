@@ -1,15 +1,18 @@
-# timetable
-
-To install dependencies:
-
-```bash
+```
 bun install
+bun run --cwd api dev
+bun run --cwd ui dev
 ```
 
-To run:
+デプロイ(どっちもdeployするときはapiの方から順番に)
 
-```bash
-bun run index.ts
+```
+bun run --cwd api deploy
+bun run --cwd ui deploy
 ```
 
-This project was created using `bun init` in bun v1.1.27. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+Drizzleスキーマに基づいてマイグレーションを生成する
+
+```
+bun drizzle-kit generate
+```
