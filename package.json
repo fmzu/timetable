@@ -1,11 +1,16 @@
 {
   "name": "timetable",
-  "module": "index.ts",
   "type": "module",
+  "scripts": {
+    "format": "biome check . --fix --unsafe"
+  },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@biomejs/biome": "^1.9.1",
+    "@types/bun": "latest",
+    "wrangler": "3.57.1"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
-  }
+  },
+  "workspaces": ["*"]
 }
