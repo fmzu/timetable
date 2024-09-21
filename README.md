@@ -16,3 +16,8 @@ Drizzleスキーマに基づいてマイグレーションを生成する
 ```
 bun drizzle-kit generate
 ```
+shadcnで必要なコンポーネントだけ取得する(bunxの際はcdでファイル移動する)
+
+```
+bunx shadcn@latest add button 
+```

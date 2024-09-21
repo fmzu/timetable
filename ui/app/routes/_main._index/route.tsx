@@ -8,5 +8,9 @@ export const meta: MetaFunction = () => {
 }
 
 export default function Route() {
-  return <div>{"ログインユーザーの受講状況画面"}</div>
+  return (
+    <div>
+      <p>{"ログインユーザーの受講状況画面"}</p>
+    </div>
+  )
 }

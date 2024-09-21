@@ -1,3 +1,9 @@
-export default function Route() {
-  return null
+import { Outlet } from "@remix-run/react"
+
+export default function MainLayout() {
+  return (
+    <>
+      <Outlet />
+    </>
+  )
 }

@@ -11,6 +11,8 @@
  * Learn more at https://developers.cloudflare.com/workers/
  */
 
+import type { Env } from "./worker-configuration"
+
 export default {
   async fetch(request, env, ctx): Promise<Response> {
     return new Response("Hello World!")
