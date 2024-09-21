@@ -1,2 +1,4 @@
-// biome-ignore lint/complexity/noBannedTypes: <explanation>
-export type Env = {}
+export type Env = {
+  DB: D1Database
+  AUTH_SECRET: string
+}

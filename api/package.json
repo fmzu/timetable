@@ -12,5 +12,12 @@
   "devDependencies": {
     "@cloudflare/vitest-pool-workers": "^0.5.2",
     "@cloudflare/workers-types": "^4.20240909.0"
+  },
+  "dependencies": {
+    "@hono/auth-js": "^1.0.10",
+    "@hono/zod-validator": "^0.2.2",
+    "bcrypt-ts": "^5.0.2",
+    "drizzle-orm": "^0.33.0",
+    "hono": "^4.6.2"
   }
 }
