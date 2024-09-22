@@ -12,6 +12,7 @@ const app = apiFactory.createApp()
 export const usersRoutes = app
   /**
    * アカウントを作成する
+   * @deprecated
    */
   .post(
     "/",
