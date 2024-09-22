@@ -6,8 +6,11 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { Toaster } from "./components/ui/toaster"
 
 import "./tailwind.css"
+import { SessionProvider } from "@hono/auth-js/react"
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -22,7 +25,9 @@ export const links: LinksFunction = () => [
   },
 ]
 
-export function Layout({ children }: { children: React.ReactNode }) {
+type Props = { children: React.ReactNode }
+
+export function Layout(props: Props) {
   return (
     <html lang="en">
       <head>
@@ -32,13 +37,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        <QueryClientProvider client={queryClient}>
+          <SessionProvider>{props.children}</SessionProvider>
+        </QueryClientProvider>
         <ScrollRestoration />
         <Scripts />
+        <Toaster />
       </body>
     </html>
   )
 }
+
+const queryClient = new QueryClient()
 
 export default function App() {
   return <Outlet />

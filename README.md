@@ -1,8 +1,7 @@
 ```
-bun install
 bun run --cwd api dev
 bun run --cwd ui dev
-```
+
 
 デプロイ(どっちもdeployするときはapiの方から順番に)
 
@@ -20,4 +19,12 @@ shadcnで必要なコンポーネントだけ取得する(bunxの際はcdでフ�
 
 ```
 bunx shadcn@latest add button 
+```
+
+### インストール
+
+bun iするときは--cwdを使う
+
+```
+bun i --cwd ui react
 ```

@@ -1,2 +1,5 @@
-// biome-ignore lint/complexity/noBannedTypes: <explanation>
-export type Env = {}
+import type Api from "../api"
+
+export type Env = {
+  API: Service<Api>
+}

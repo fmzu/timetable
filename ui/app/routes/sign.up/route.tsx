@@ -1,10 +1,9 @@
-import { signIn } from "@hono/auth-js/react"
 import { useNavigate } from "@remix-run/react"
 import { useMutation } from "@tanstack/react-query"
 import { useState } from "react"
-import { toast } from "sonner"
 import { Button } from "~/components/ui/button"
 import { Input } from "~/components/ui/input"
+import { client } from "~/lib/client"
 
 export default function Route() {
   const navigate = useNavigate()
@@ -15,30 +14,28 @@ export default function Route() {
 
   const mutation = useMutation({
     async mutationFn() {
-      const resp = await signIn("credentials", {
-        email: loginId,
-        password: password,
-        redirect: false,
+      const resp = await client.api.users.$post({
+        json: {
+          email: loginId,
+          password: password,
+        },
       })
-      if (resp?.status !== 200) {
-        return "ログインに失敗しました"
-      }
-      return null
+      const json = await resp.json()
+      return json
     },
   })
 
-  const onSubmit = async () => {
-    const result = await mutation.mutateAsync()
+  const onSubmit = () => {
+    const result = mutation.mutate()
     if (result === null) {
-      navigate("/")
+      navigate("/sign/in")
       return
     }
-    toast(result)
   }
 
   return (
     <div className={"mx-auto max-w-xs space-y-4 p-4 pt-40"}>
-      <h1 className="font-bold">{"HASCII"}</h1>
+      <h1>{"新しいアカウント"}</h1>
       <form
         className="space-y-2"
         onSubmit={(event) => {
@@ -47,19 +44,23 @@ export default function Route() {
         }}
       >
         <Input
-          type="email"
+          type={"email"}
           placeholder="メールアドレス"
           value={loginId}
-          onChange={(event) => setLoginId(event.target.value)}
+          onChange={(event) => {
+            setLoginId(event.target.value)
+          }}
         />
         <Input
-          type="password"
+          type={"password"}
           placeholder="パスワード"
           value={password}
-          onChange={(event) => setPassword(event.target.value)}
+          onChange={(event) => {
+            setPassword(event.target.value)
+          }}
         />
-        <Button type="submit" className="w-full">
-          {"ログイン"}
+        <Button type={"submit"} className="w-full">
+          {"登録する"}
         </Button>
       </form>
     </div>
