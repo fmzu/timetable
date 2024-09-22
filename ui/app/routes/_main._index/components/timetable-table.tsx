@@ -12,86 +12,86 @@ export function TimetableTable() {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>{""}</TableHead>
-          <TableHead>{"月"}</TableHead>
-          <TableHead>{"火"}</TableHead>
-          <TableHead>{"水"}</TableHead>
-          <TableHead>{"木"}</TableHead>
-          <TableHead>{"金"}</TableHead>
-          <TableHead>{"土"}</TableHead>
-          <TableHead>{"日"}</TableHead>
+          <TableHead className="border-r text-center">{""}</TableHead>
+          <TableHead className="border-r text-center">{"月"}</TableHead>
+          <TableHead className="border-r text-center">{"火"}</TableHead>
+          <TableHead className="border-r text-center">{"水"}</TableHead>
+          <TableHead className="border-r text-center">{"木"}</TableHead>
+          <TableHead className="border-r text-center">{"金"}</TableHead>
+          <TableHead className="border-r text-center">{"土"}</TableHead>
+          <TableHead className="border-r text-center">{"日"}</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         <TableRow>
-          <TableCell>{"1"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"1"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>{"2"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"2"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>{"3"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"3"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>{"4"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"4"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>{"5"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"5"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>{"6"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"6"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>{"7"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
-          <TableCell>{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"7"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{"invoice"}</TableCell>
         </TableRow>
       </TableBody>
     </Table>

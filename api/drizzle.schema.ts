@@ -2,11 +2,39 @@ import { relations, sql } from "drizzle-orm"
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core"
 
 /**
- * 講義
+ * 授業情報
  */
 export const programs = sqliteTable("programs", {
   id: text("uuid", { length: 36 }).notNull().unique(),
   name: text("name", { length: 256 }).notNull(),
+  /**
+   * 時間枠（時間）
+   */
+  timeSlot: integer("time_slot").notNull(),
+  /**
+   * 時間枠（曜日）
+   */
+  weekSlot: integer("week_slot").notNull(),
+  /**
+   * 担当教員
+   */
+  ownerId: text("owner_id", { length: 36 }).notNull(),
+  /**
+   * 単位数
+   */
+  unitsCount: integer("units_count").notNull(),
+  /**
+   * 授業概要
+   */
+  overview: text("overview", { length: 2048 }).notNull(),
+  /**
+   * 実施時期（年度）
+   */
+  year: integer("year").notNull(),
+  /**
+   * 実施時期（前期後期）
+   */
+  period: integer("period").notNull(),
   createdAt: integer("created_at", { mode: "timestamp" })
     .notNull()
     .default(sql`CURRENT_TIMESTAMP`),
@@ -27,6 +55,13 @@ export const users = sqliteTable("users", {
   email: text("email", { length: 256 }).notNull().unique(),
   hashedPassword: text("hashed_password", { length: 256 }).notNull(),
   login: text("login", { length: 256 }).notNull().unique(),
+  /**
+   * ユーザの役職
+   * 0: 学生
+   * 1: 教員
+   * 2: 管理者など
+   */
+  role: integer("role").notNull(),
   isDeleted: integer("is_deleted", { mode: "boolean" })
     .notNull()
     .default(false),
