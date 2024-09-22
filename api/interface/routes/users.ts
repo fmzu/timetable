@@ -32,6 +32,11 @@ export const usersRoutes = app
       const hashedPassword = hashSync(json.password, salt)
 
       const userUuid = crypto.randomUUID()
+      /**
+       * 0: 学生，1: 教員，2: 管理者
+       * あとでオブジェクトにする
+       */
+      const roll = 0
 
       await db.insert(schema.users).values({
         id: userUuid,
@@ -39,6 +44,7 @@ export const usersRoutes = app
         hashedPassword: hashedPassword,
         login: crypto.randomUUID(),
         name: crypto.randomUUID(),
+        role: roll,
       })
 
       return c.json({}, {})

@@ -4,3 +4,8 @@ name = "timetable-api"
 main = "index.ts"
 compatibility_date = "2024-09-09"
 compatibility_flags = ["nodejs_compat"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "timetable"
+database_id = "69e1bc2f-f4f6-4573-859e-ee696d96bb77"
