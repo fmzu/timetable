@@ -1,15 +1,13 @@
-import { useNavigate } from "@remix-run/react"
 import { useMutation } from "@tanstack/react-query"
 import { useState } from "react"
+import { toast } from "sonner"
 import { Button } from "~/components/ui/button"
 import { Card } from "~/components/ui/card"
 import { Input } from "~/components/ui/input"
 import { Textarea } from "~/components/ui/textarea"
 import { client } from "~/lib/client"
 
-export function ClassRegistrationCard() {
-  const navigate = useNavigate()
-
+export function ProgramRegistrationCard() {
   const [name, setName] = useState("")
 
   const [timeSlot, setTimeSlot] = useState(0)
@@ -47,8 +45,8 @@ export function ClassRegistrationCard() {
 
   const onSubmit = () => {
     const result = mutation.mutate()
+    toast("投稿しました")
     if (result === null) {
-      navigate("/admin")
       return
     }
   }

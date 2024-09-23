@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "@remix-run/react"
+import { useNavigate } from "@remix-run/react"
 import { useMutation } from "@tanstack/react-query"
 import { useState } from "react"
 import { Button } from "~/components/ui/button"
@@ -12,6 +12,8 @@ export default function Route() {
   const [loginId, setLoginId] = useState("")
 
   const [password, setPassword] = useState("")
+
+  const [role, setRole] = useState(0)
 
   const mutation = useMutation({
     async mutationFn() {
@@ -61,20 +63,19 @@ export default function Route() {
               setPassword(event.target.value)
             }}
           />
+          <Input
+            type={"number"}
+            placeholder="役割"
+            value={role}
+            onChange={(event) => {
+              setRole(event.target.valueAsNumber)
+            }}
+          />
           <Button type={"submit"} className="w-full">
             {"登録する"}
           </Button>
         </form>
       </Card>
-      <Link to="/admin/programs/">
-        <Card className="flex p-4 justify-between items-center">
-          <p>{"メールアドレス"}</p>
-          <div className="space-x-2">
-            <Button variant={"outline"}>{"編集"}</Button>
-            <Button variant={"outline"}>{"削除"}</Button>
-          </div>
-        </Card>
-      </Link>
     </div>
   )
 }
