@@ -16,7 +16,9 @@ export const programsRoutes = app
   .get("/programs", async (c) => {
     const db = drizzle(c.env.DB, { schema })
 
-    const programs = await db.query.programs.findMany()
+    const programs = await db.query.programs.findMany({
+      with: { owner: true },
+    })
 
     const programsJson = programs.map((program) => {
       return {

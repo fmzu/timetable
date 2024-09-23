@@ -51,24 +51,37 @@ export const adminUsersRoutes = app
   /**
    * 複数のユーザを取得する
    */
-  .get("/admin/users", async (c) => {
-    const db = drizzle(c.env.DB, { schema })
+  .get(
+    "/admin/users",
+    vValidator(
+      "query",
+      object({
+        role: string(),
+      }),
+    ),
+    async (c) => {
+      const query = c.req.valid("query")
 
-    const users = await db.query.users.findMany()
+      const db = drizzle(c.env.DB, { schema })
 
-    if (users === undefined) {
-      throw new HTTPException(500, { message: "Not Found" })
-    }
+      const users = await db.query.users.findMany({
+        where: eq(schema.users.role, Number.parseInt(query.role)),
+      })
 
-    const usersJson = users.map((user) => {
-      return {
-        id: user.id,
-        name: user.name,
+      if (users === undefined) {
+        throw new HTTPException(500, { message: "Not Found" })
       }
-    })
 
-    return c.json(usersJson)
-  })
+      const usersJson = users.map((user) => {
+        return {
+          id: user.id,
+          name: user.name,
+        }
+      })
+
+      return c.json(usersJson)
+    },
+  )
   /**
    * 任意のユーザを取得する
    */

@@ -46,6 +46,10 @@ export const programs = sqliteTable("programs", {
 export const programRelations = relations(programs, (fn) => {
   return {
     enrollments: fn.many(enrollments),
+    owner: fn.one(users, {
+      fields: [programs.ownerId],
+      references: [users.id],
+    }),
   }
 })
 
@@ -70,6 +74,7 @@ export const users = sqliteTable("users", {
 export const userRelations = relations(users, (fn) => {
   return {
     enrollments: fn.many(enrollments),
+    programs: fn.many(programs),
   }
 })
 
