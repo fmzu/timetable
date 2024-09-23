@@ -52,7 +52,7 @@ export function ProgramRegistrationCard() {
   }
 
   return (
-    <Card className="p-4">
+    <Card className="p-4 space-y-2">
       <p>{"新規授業登録"}</p>
       <form
         className="space-y-2"

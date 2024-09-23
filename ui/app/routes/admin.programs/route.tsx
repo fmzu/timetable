@@ -15,7 +15,7 @@ import { ProgramRegistrationCard } from "~/routes/admin.programs/components/prog
  */
 export default function Route() {
   return (
-    <div className="p-4 space-y-2">
+    <main className="p-4 space-y-2">
       <ProgramRegistrationCard />
       <Card>
         <Table className="whitespace-nowrap">
@@ -71,6 +71,6 @@ export default function Route() {
           </TableBody>
         </Table>
       </Card>
-    </div>
+    </main>
   )
 }
