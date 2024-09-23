@@ -10,7 +10,7 @@ export const myUserRoutes = app
   /**
    * 任意のユーザーを取得する
    */
-  .get("my/user", async (c) => {
+  .get("/my/user", async (c) => {
     const db = drizzle(c.env.DB, { schema })
 
     const auth = c.get("authUser")
@@ -36,6 +36,6 @@ export const myUserRoutes = app
   /**
    * 任意のユーザーを修正する
    */
-  .put("my-user/:my-user", async (c) => {
+  .put("/my-user/:my-user", async (c) => {
     return c.json({})
   })

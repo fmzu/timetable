@@ -10,7 +10,7 @@ export const myEnrollmentsRoutes = app
   /**
    * 自分の受講登録の一覧を取得する
    */
-  .get("my/enrollments", async (c) => {
+  .get("/my/enrollments", async (c) => {
     const db = drizzle(c.env.DB, { schema })
 
     const myEnrollments = await db.query.enrollments.findMany()

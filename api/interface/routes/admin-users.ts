@@ -3,7 +3,7 @@ import { genSaltSync, hashSync } from "bcrypt-ts"
 import { eq } from "drizzle-orm"
 import { drizzle } from "drizzle-orm/d1"
 import { HTTPException } from "hono/http-exception"
-import { object, string } from "valibot"
+import { number, object, string } from "valibot"
 import { apiFactory } from "~/interface/api-factory"
 import { schema } from "~/lib/schema"
 
@@ -16,12 +16,13 @@ export const adminUsersRoutes = app
    * 管理者がユーザを作成する
    */
   .post(
-    "admin/users",
+    "/admin/users",
     vValidator(
       "json",
       object({
         email: string(),
         password: string(),
+        role: number(),
       }),
     ),
     async (c) => {
@@ -34,11 +35,6 @@ export const adminUsersRoutes = app
       const hashedPassword = hashSync(json.password, salt)
 
       const userUuid = crypto.randomUUID()
-      /**
-       * 0: 学生，1: 教員，2: 管理者
-       * あとでオブジェクトにする
-       */
-      const roll = 0
 
       await db.insert(schema.users).values({
         id: userUuid,
@@ -46,7 +42,7 @@ export const adminUsersRoutes = app
         hashedPassword: hashedPassword,
         login: crypto.randomUUID(),
         name: crypto.randomUUID(),
-        role: roll,
+        role: json.role,
       })
 
       return c.json({}, {})
@@ -55,7 +51,7 @@ export const adminUsersRoutes = app
   /**
    * 複数のユーザを取得する
    */
-  .get("admin/users", async (c) => {
+  .get("/admin/users", async (c) => {
     const db = drizzle(c.env.DB, { schema })
 
     const users = await db.query.users.findMany()
@@ -76,7 +72,7 @@ export const adminUsersRoutes = app
   /**
    * 任意のユーザを取得する
    */
-  .get("admin/users/:user", async (c) => {
+  .get("/admin/users/:user", async (c) => {
     const db = drizzle(c.env.DB, { schema })
 
     const userId = c.req.param("user")
@@ -98,13 +94,13 @@ export const adminUsersRoutes = app
   /**
    * ユーザを更新する
    */
-  .put("admin/users/:user", async (c) => {
+  .put("/admin/users/:user", async (c) => {
     return c.json({})
   })
   /**
    * ユーザを削除する
    */
-  .delete("admin/users/:user", async (c) => {
+  .delete("/admin/users/:user", async (c) => {
     const db = drizzle(c.env.DB)
 
     const userId = c.req.param("user")
