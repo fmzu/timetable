@@ -82,9 +82,15 @@ export const adminProgramsRoutes = app
 
     return c.json(programJson)
   })
+  /**
+   * 任意の講義を更新する
+   */
   .put("/admin/programs/:program", async (c) => {
     return c.json({})
   })
+  /**
+   * 任意の講義を削除する
+   */
   .delete("admin/programs/:program", async (c) => {
     const db = drizzle(c.env.DB)
 

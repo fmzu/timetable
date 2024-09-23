@@ -61,5 +61,14 @@ export const programEnrollmentsRoutes = app
    * 任意の登録を削除する
    */
   .delete("/programs/:program/enrollments/:enrollment", async (c) => {
+    const db = drizzle(c.env.DB)
+
+    const enrollmentId = c.req.param("enrollment")
+
+    await db
+      .update(schema.enrollments)
+      .set({ isDeleted: true })
+      .where(eq(schema.enrollments.id, enrollmentId))
+
     return c.json({})
   })

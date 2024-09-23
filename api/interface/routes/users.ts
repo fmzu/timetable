@@ -106,15 +106,15 @@ export const usersRoutes = app
   /**
    * アカウントを削除する
    */
-  .put(
-    "/:user",
-    vValidator(
-      "json",
-      object({
-        id: string(),
-      }),
-    ),
-    async (c) => {
-      return c.json({})
-    },
-  )
+  .put("/:user", async (c) => {
+    const db = drizzle(c.env.DB)
+
+    const userId = c.req.param("user")
+
+    await db
+      .update(schema.users)
+      .set({ isDeleted: true })
+      .where(eq(schema.users.id, userId))
+
+    return c.json({})
+  })
