@@ -1,5 +1,9 @@
 import { type LoaderFunctionArgs, json } from "@remix-run/cloudflare"
 import { Link, useLoaderData } from "@remix-run/react"
+import { useMutation } from "@tanstack/react-query"
+import type { InferRequestType, InferResponseType } from "hono/client"
+import { toast } from "sonner"
+import { Button } from "~/components/ui/button"
 import { Card } from "~/components/ui/card"
 import {
   Table,
@@ -9,6 +13,7 @@ import {
   TableHeader,
   TableRow,
 } from "~/components/ui/table"
+import { client } from "~/lib/client"
 import { loaderClient } from "~/lib/loader-client"
 
 export async function loader(args: LoaderFunctionArgs) {
@@ -23,8 +28,39 @@ export async function loader(args: LoaderFunctionArgs) {
   return json(programs)
 }
 
+const endpoint = client.api.programs[":program"].enrollments
+
 export default function Route() {
   const data = useLoaderData<typeof loader>()
+
+  const mutation = useMutation<
+    InferResponseType<typeof endpoint.$post>,
+    Error,
+    InferRequestType<typeof endpoint.$post>
+  >({
+    async mutationFn(props) {
+      const resp = await endpoint.$post({
+        param: {
+          program: props.param.program,
+        },
+      })
+
+      const json = await resp.json()
+
+      return json
+    },
+  })
+
+  const onSubmit = async (programId: string) => {
+    const result = await mutation.mutateAsync({
+      param: { program: programId },
+    })
+    toast("登録しました")
+
+    if (result === null) {
+      return
+    }
+  }
 
   return (
     <div className="p-4">
@@ -33,6 +69,7 @@ export default function Route() {
         <Table className="whitespace-nowrap">
           <TableHeader>
             <TableRow>
+              <TableHead className="border-r text-center">{""}</TableHead>
               <TableHead className="border-r text-center">{"講義名"}</TableHead>
               <TableHead className="border-r text-center">{"時間枠"}</TableHead>
               <TableHead className="border-r text-center">{"曜日"}</TableHead>
@@ -54,6 +91,17 @@ export default function Route() {
           <TableBody>
             {data.map((program) => (
               <TableRow key={program.id}>
+                <TableCell className="border-r text-center">
+                  <form
+                    className="space-y-2"
+                    onSubmit={(event) => {
+                      event.preventDefault()
+                      onSubmit(program.id)
+                    }}
+                  >
+                    <Button>{"追加"}</Button>
+                  </form>
+                </TableCell>
                 <TableCell className="border-r text-center">
                   <Link to={`/programs/${program.id}`}>{program.name}</Link>
                 </TableCell>

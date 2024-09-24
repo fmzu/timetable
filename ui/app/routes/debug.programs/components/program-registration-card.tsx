@@ -38,7 +38,9 @@ export function ProgramRegistrationCard() {
           period: period,
         },
       })
+
       const json = await resp.json()
+
       return json
     },
   })

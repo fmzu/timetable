@@ -1,3 +1,4 @@
+import { verifyAuth } from "@hono/auth-js"
 import { eq } from "drizzle-orm"
 import { drizzle } from "drizzle-orm/d1"
 import { HTTPException } from "hono/http-exception"
@@ -13,43 +14,50 @@ export const programEnrollmentsRoutes = app
   /**
    * 登録を作成する
    */
-  .post("/programs/:program/enrollments", async (c) => {
+  .post(
+    "/programs/:program/enrollments",
     /**
-     * 認証ユーザを取得する
+     * verifyAuth()がログイン認証を行っている
      */
-    const auth = c.get("authUser")
+    verifyAuth(),
+    async (c) => {
+      /**
+       * 認証ユーザを取得する
+       */
+      const auth = c.get("authUser")
 
-    const authUserEmail = auth.token?.email ?? null
+      const authUserEmail = auth.token?.email ?? null
 
-    if (authUserEmail === null) {
-      throw new HTTPException(401, { message: "Unauthorized" })
-    }
+      if (authUserEmail === null) {
+        throw new HTTPException(401, { message: "Unauthorized" })
+      }
 
-    const db = drizzle(c.env.DB, { schema })
+      const db = drizzle(c.env.DB, { schema })
 
-    /**
-     * 対象のユーザを取得する
-     */
-    const user = await db
-      .select()
-      .from(schema.users)
-      .where(eq(schema.users.email, authUserEmail))
-      .get()
+      /**
+       * 対象のユーザを取得する
+       */
+      const user = await db
+        .select()
+        .from(schema.users)
+        .where(eq(schema.users.email, authUserEmail))
+        .get()
 
-    if (user === undefined) {
-      throw new HTTPException(401, { message: "Unauthorized" })
-    }
+      if (user === undefined) {
+        throw new HTTPException(401, { message: "Unauthorized" })
+      }
 
-    const programId = c.req.param("program")
+      const programId = c.req.param("program")
 
-    await db.insert(schema.enrollments).values({
-      id: crypto.randomUUID(),
-      programId: programId,
-      userId: user.id,
-    })
+      await db.insert(schema.enrollments).values({
+        id: crypto.randomUUID(),
+        programId: programId,
+        userId: user.id,
+      })
 
-    return c.json({})
-  })
+      return c.json({})
+    },
+  )
   /**
    * 複数の登録を取得する
    */
