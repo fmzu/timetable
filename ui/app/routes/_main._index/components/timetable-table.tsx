@@ -22,6 +22,26 @@ export function TimetableTable() {
   })
   console.log("dataaaaaaaaaaa", data.data)
 
+  const [weekSlot] = data.data.map((slot) => {
+    return slot.program.weekSlot
+  })
+  console.log("weekSlot", weekSlot)
+
+  const [timeSlot] = data.data.map((slot) => {
+    return slot.program.timeSlot
+  })
+
+  /**
+   * 数字の0と0を足して文字列の00を返す
+   * @param weekSlot
+   * @param timeSlot
+   * @returns
+   */
+  const slot = (weekSlot: number, timeSlot: number) => {
+    const sum = weekSlot.toString() + timeSlot.toString()
+    return sum
+  }
+
   return (
     <Table>
       <TableHeader>
@@ -39,7 +59,7 @@ export function TimetableTable() {
       <TableBody>
         <TableRow>
           <TableCell className="border-r text-center">{"1"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{slot(0, 0)}</TableCell>
           <TableCell className="border-r text-center">{"invoice"}</TableCell>
           <TableCell className="border-r text-center">{"invoice"}</TableCell>
           <TableCell className="border-r text-center">{"invoice"}</TableCell>
