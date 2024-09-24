@@ -26,7 +26,7 @@ export function ProgramRegistrationCard() {
 
   const mutation = useMutation({
     async mutationFn() {
-      const resp = await client.api.admin.programs.$post({
+      const resp = await client.api.debug.programs.$post({
         json: {
           name: name,
           timeSlot: timeSlot,

@@ -4,7 +4,7 @@ import { Card } from "~/components/ui/card"
 
 export default function UserCard() {
   return (
-    <Link to="/admin/programs/">
+    <Link to="/debug/programs/">
       <Card className="flex p-4 justify-between items-center">
         <p>{"メールアドレス"}</p>
         <div className="space-x-2">

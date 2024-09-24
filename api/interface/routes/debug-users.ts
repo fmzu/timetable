@@ -11,12 +11,12 @@ const app = apiFactory.createApp()
 /**
  * 管理者専用のユーザ画面
  */
-export const adminUsersRoutes = app
+export const debugUsersRoutes = app
   /**
    * 管理者がユーザを作成する
    */
   .post(
-    "/admin/users",
+    "/debug/users",
     vValidator(
       "json",
       object({
@@ -52,7 +52,7 @@ export const adminUsersRoutes = app
    * 複数のユーザを取得する
    */
   .get(
-    "/admin/users",
+    "/debug/users",
     vValidator(
       "query",
       object({
@@ -85,7 +85,7 @@ export const adminUsersRoutes = app
   /**
    * 任意のユーザを取得する
    */
-  .get("/admin/users/:user", async (c) => {
+  .get("/debug/users/:user", async (c) => {
     const db = drizzle(c.env.DB, { schema })
 
     const userId = c.req.param("user")
@@ -107,13 +107,13 @@ export const adminUsersRoutes = app
   /**
    * ユーザを更新する
    */
-  .put("/admin/users/:user", async (c) => {
+  .put("/debug/users/:user", async (c) => {
     return c.json({})
   })
   /**
    * ユーザを削除する
    */
-  .delete("/admin/users/:user", async (c) => {
+  .delete("/debug/users/:user", async (c) => {
     const db = drizzle(c.env.DB)
 
     const userId = c.req.param("user")

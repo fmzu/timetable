@@ -7,7 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from "~/components/ui/table"
-import { UserRegistrationCard } from "~/routes/admin.users/components/user-registration-card"
+import { UserRegistrationCard } from "~/routes/debug.users/components/user-registration-card"
 
 export default function Route() {
   return (

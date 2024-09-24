@@ -7,7 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from "~/components/ui/table"
-import { ProgramRegistrationCard } from "~/routes/admin.programs/components/program-registration-card"
+import { ProgramRegistrationCard } from "~/routes/debug.programs/components/program-registration-card"
 
 /**
  * 管理者が授業やユーザーを管理するページ

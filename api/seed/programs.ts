@@ -3,7 +3,7 @@ import type { Api } from "~/index"
 
 const client = hc<Api>("http://localhost:5173")
 
-const resp = await client.api.admin.users.$get({ query: { role: "0" } })
+const resp = await client.api.debug.users.$get({ query: { role: "0" } })
 
 const users = await resp.json()
 
@@ -255,7 +255,7 @@ const 後期programs = [
 ]
 
 for (const program of 後期programs) {
-  await client.api.admin.programs.$post({
+  await client.api.debug.programs.$post({
     json: {
       name: program.name,
       timeSlot: program.timeSlot,

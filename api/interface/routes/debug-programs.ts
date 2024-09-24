@@ -10,9 +10,9 @@ const app = apiFactory.createApp()
 /**
  * 管理者専用の講義画面
  */
-export const adminProgramsRoutes = app
+export const debugProgramsRoutes = app
   .post(
-    "/admin/programs",
+    "/debug/programs",
     vValidator(
       "json",
       object({
@@ -49,7 +49,7 @@ export const adminProgramsRoutes = app
   /**
    * 複数の講義を取得する
    */
-  .get("/admin/programs", async (c) => {
+  .get("/debug/programs", async (c) => {
     const db = drizzle(c.env.DB, { schema })
 
     const programs = await db.query.programs.findMany()
@@ -65,7 +65,7 @@ export const adminProgramsRoutes = app
   /**
    * 任意の講義を取得する
    */
-  .get("/admin/programs/:program", async (c) => {
+  .get("/debug/programs/:program", async (c) => {
     const db = drizzle(c.env.DB, { schema })
 
     const programId = c.req.param("program")
@@ -85,13 +85,13 @@ export const adminProgramsRoutes = app
   /**
    * 任意の講義を更新する
    */
-  .put("/admin/programs/:program", async (c) => {
+  .put("/debug/programs/:program", async (c) => {
     return c.json({})
   })
   /**
    * 任意の講義を削除する
    */
-  .delete("admin/programs/:program", async (c) => {
+  .delete("debug/programs/:program", async (c) => {
     const db = drizzle(c.env.DB)
 
     const programId = c.req.param("program")
