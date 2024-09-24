@@ -27,7 +27,9 @@ export const usersRoutes = app
       const json = c.req.valid("json")
 
       const db = drizzle(c.env.DB)
-
+      /**
+       * パスワードをハッシュ化する
+       */
       const salt = genSaltSync(10)
 
       const hashedPassword = hashSync(json.password, salt)

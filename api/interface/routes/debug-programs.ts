@@ -11,6 +11,9 @@ const app = apiFactory.createApp()
  * 管理者専用の講義画面
  */
 export const debugProgramsRoutes = app
+  /**
+   * 講義を作成する
+   */
   .post(
     "/debug/programs",
     vValidator(

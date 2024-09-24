@@ -1,6 +1,7 @@
 import { eq } from "drizzle-orm"
 import { drizzle } from "drizzle-orm/d1"
 import { HTTPException } from "hono/http-exception"
+import {} from "valibot"
 import { apiFactory } from "~/interface/api-factory"
 import { schema } from "~/lib/schema"
 
@@ -13,6 +14,40 @@ export const programEnrollmentsRoutes = app
    * 登録を作成する
    */
   .post("/programs/:program/enrollments", async (c) => {
+    /**
+     * 認証ユーザを取得する
+     */
+    const auth = c.get("authUser")
+
+    const authUserEmail = auth.token?.email ?? null
+
+    if (authUserEmail === null) {
+      throw new HTTPException(401, { message: "Unauthorized" })
+    }
+
+    const db = drizzle(c.env.DB, { schema })
+
+    /**
+     * 対象のユーザを取得する
+     */
+    const user = await db
+      .select()
+      .from(schema.users)
+      .where(eq(schema.users.email, authUserEmail))
+      .get()
+
+    if (user === undefined) {
+      throw new HTTPException(401, { message: "Unauthorized" })
+    }
+
+    const programId = c.req.param("program")
+
+    await db.insert(schema.enrollments).values({
+      id: crypto.randomUUID(),
+      programId: programId,
+      userId: user.id,
+    })
+
     return c.json({})
   })
   /**
@@ -55,6 +90,44 @@ export const programEnrollmentsRoutes = app
    * 任意の登録を修正する
    */
   .put("/programs/:program/enrollments/:enrollment", async (c) => {
+    /**
+     * 認証ユーザを取得する
+     */
+    const auth = c.get("authUser")
+
+    const authUserEmail = auth.token?.email ?? null
+
+    if (authUserEmail === null) {
+      throw new HTTPException(401, { message: "Unauthorized" })
+    }
+
+    const db = drizzle(c.env.DB, { schema })
+
+    /**
+     *  対象のユーザを取得する
+     */
+    const user = await db
+      .select()
+      .from(schema.users)
+      .where(eq(schema.users.email, authUserEmail))
+      .get()
+
+    if (user === undefined) {
+      throw new HTTPException(401, { message: "Unauthorized" })
+    }
+
+    const programId = c.req.param("programId")
+
+    if (programId === undefined) {
+      throw new HTTPException(400, { message: "Bad Request" })
+    }
+
+    await db.insert(schema.enrollments).values({
+      id: crypto.randomUUID(),
+      userId: user.id,
+      programId: programId,
+    })
+
     return c.json({})
   })
   /**
