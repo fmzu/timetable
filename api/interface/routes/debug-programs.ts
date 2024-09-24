@@ -94,7 +94,7 @@ export const debugProgramsRoutes = app
   /**
    * 任意の講義を削除する
    */
-  .delete("debug/programs/:program", async (c) => {
+  .delete("/debug/programs/:program", async (c) => {
     const db = drizzle(c.env.DB)
 
     const programId = c.req.param("program")

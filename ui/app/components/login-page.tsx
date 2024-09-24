@@ -6,7 +6,7 @@ import { toast } from "sonner"
 import { Button } from "~/components/ui/button"
 import { Input } from "~/components/ui/input"
 
-export default function Route() {
+export function LoginPage() {
   const navigate = useNavigate()
 
   const [loginId, setLoginId] = useState("")
@@ -38,7 +38,7 @@ export default function Route() {
 
   return (
     <div className={"mx-auto max-w-xs space-y-4 p-4 pt-40"}>
-      <h1 className="font-bold">{"HASCII"}</h1>
+      <h1 className="font-bold">{"TIMETABLE"}</h1>
       <form
         className="space-y-2"
         onSubmit={(event) => {

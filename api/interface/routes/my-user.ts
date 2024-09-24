@@ -36,6 +36,6 @@ export const myUserRoutes = app
   /**
    * 任意のユーザーを修正する
    */
-  .put("/my-user/:my-user", async (c) => {
+  .put("/my/user", async (c) => {
     return c.json({})
   })
