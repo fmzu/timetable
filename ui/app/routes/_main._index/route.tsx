@@ -13,7 +13,7 @@ export const meta: MetaFunction = () => {
 export default function Route() {
   return (
     <div className="p-4 flex flex-col gap-y-4">
-      <p>{"2024年度前期時間割"}</p>
+      <h1>{"2024年度前期時間割"}</h1>
       <Suspense>
         <Card>
           <TimetableTable />

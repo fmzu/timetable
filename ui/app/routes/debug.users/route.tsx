@@ -4,7 +4,7 @@ import { UserRegistrationCard } from "~/routes/debug.users/components/user-regis
 export default function Route() {
   return (
     <main className="p-4 container">
-      <UserRegistrationCard />{" "}
+      <UserRegistrationCard />
     </main>
   )
 }

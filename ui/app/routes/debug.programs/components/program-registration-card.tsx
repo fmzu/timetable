@@ -1,6 +1,5 @@
 import { useMutation } from "@tanstack/react-query"
 import { useState } from "react"
-import { toast } from "sonner"
 import { Button } from "~/components/ui/button"
 import { Card } from "~/components/ui/card"
 import { Input } from "~/components/ui/input"
@@ -47,14 +46,14 @@ export function ProgramRegistrationCard() {
 
   const onSubmit = () => {
     const result = mutation.mutate()
-    toast("投稿しました")
+    alert("投稿しました")
     if (result === null) {
       return
     }
   }
 
   return (
-    <Card className="p-4 space-y-2">
+    <Card className="p-4 space-y-4">
       <p>{"新規授業登録"}</p>
       <form
         className="space-y-2"

@@ -2,7 +2,6 @@ import { type LoaderFunctionArgs, json } from "@remix-run/cloudflare"
 import { Link, useLoaderData } from "@remix-run/react"
 import { useMutation } from "@tanstack/react-query"
 import type { InferRequestType, InferResponseType } from "hono/client"
-import { toast } from "sonner"
 import { Button } from "~/components/ui/button"
 import { Card } from "~/components/ui/card"
 import {
@@ -55,7 +54,7 @@ export default function Route() {
     const result = await mutation.mutateAsync({
       param: { program: programId },
     })
-    toast("登録しました")
+    alert("登録しました")
 
     if (result === null) {
       return
@@ -64,7 +63,7 @@ export default function Route() {
 
   return (
     <div className="p-4">
-      {"授業一覧"}
+      <h1>{"授業一覧"}</h1>
       <Card>
         <Table className="whitespace-nowrap">
           <TableHeader>
