@@ -1,3 +1,4 @@
+import { Link } from "@remix-run/react"
 import { useSuspenseQuery } from "@tanstack/react-query"
 import {
   Table,
@@ -40,6 +41,11 @@ export function TimetableTable() {
     return sum
   }
 
+  const [id] = data.data.map((slot) => {
+    return slot.program.id
+  })
+  console.log(id)
+
   return (
     <Table>
       <TableHeader>
@@ -57,7 +63,11 @@ export function TimetableTable() {
       <TableBody>
         <TableRow>
           <TableCell className="border-r text-center">{"1"}</TableCell>
-          <TableCell className="border-r text-center">{slot(0, 0)}</TableCell>
+          <TableCell className="border-r text-center">
+            <Link to={`/programs/${id}`}>
+              <p>{slot(0, 0)}</p>
+            </Link>
+          </TableCell>
           <TableCell className="border-r text-center">{"invoice"}</TableCell>
           <TableCell className="border-r text-center">{"invoice"}</TableCell>
           <TableCell className="border-r text-center">{"invoice"}</TableCell>

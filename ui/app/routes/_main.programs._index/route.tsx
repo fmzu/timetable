@@ -62,7 +62,7 @@ export default function Route() {
   }
 
   return (
-    <div className="p-4">
+    <main className="p-4 container">
       <h1>{"授業一覧"}</h1>
       <Card>
         <Table className="whitespace-nowrap">
@@ -130,6 +130,6 @@ export default function Route() {
           </TableBody>
         </Table>
       </Card>
-    </div>
+    </main>
   )
 }

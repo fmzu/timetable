@@ -23,7 +23,7 @@ export default function Route() {
   }
 
   return (
-    <main className="p-4 space-y-4">
+    <main className="p-4 space-y-4 container">
       <h1>{"パスワード変更"}</h1>
       <div className="space-y-2">
         <Input placeholder="メールアドレス" value={email} readOnly />

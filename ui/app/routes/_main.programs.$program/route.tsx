@@ -1,5 +1,6 @@
 import { type LoaderFunctionArgs, json } from "@remix-run/cloudflare"
 import { useLoaderData } from "@remix-run/react"
+import { Button } from "~/components/ui/button"
 import { loaderClient } from "~/lib/loader-client"
 
 /**
@@ -26,11 +27,18 @@ export async function loader(args: LoaderFunctionArgs) {
 
 export default function Route() {
   const data = useLoaderData<typeof loader>()
-
+  /**
+   * 受講状況に応じて登録ボタンか削除ボタンのどちらかを表示する
+   */
   return (
     <main className="container p-4 space-y-4">
-      <h1>{data.name}</h1>
-      <p>{data.overview}</p>
+      <h1 className="text-xl">{data.name}</h1>
+      <Button>{"登録"}</Button>
+      <Button>{"削除"}</Button>
+      <div>
+        <p>{"授業概要: "}</p>
+        <p>{data.overview}</p>
+      </div>
       <p className="text-sm">{`実施時期: ${data.period}`}</p>
       <p className="text-sm">{`単位数: ${data.unitsCount}`}</p>
       <p className="text-sm">{`実施時間: ${data.weekSlot}曜日 ${data.timeSlot}時間目`}</p>

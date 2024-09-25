@@ -46,7 +46,7 @@ export function ProgramRegistrationCard() {
 
   const onSubmit = () => {
     const result = mutation.mutate()
-    alert("投稿しました")
+    alert("登録しました")
     if (result === null) {
       return
     }
