@@ -1,4 +1,6 @@
+import { signOut } from "@hono/auth-js/react"
 import { Link } from "@remix-run/react"
+import { toast } from "sonner"
 import { Button } from "~/components/ui/button"
 
 export default function MainHeader() {
@@ -12,13 +14,19 @@ export default function MainHeader() {
           <Button>{"講義一覧"}</Button>
         </Link>
       </div>
-      <div className="space-x-2">
+      <div className="flex gap-x-2">
         <Link to={"/"}>
           <Button>{"アカウント"}</Button>
         </Link>
-        <Link to={"/"}>
-          <Button>{"ログアウト"}</Button>
-        </Link>
+        <Button
+          className="flex space-x-2 w-full"
+          onClick={() => {
+            signOut()
+            toast("ログアウトしました")
+          }}
+        >
+          {"ログアウト"}
+        </Button>
       </div>
     </header>
   )
