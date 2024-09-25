@@ -20,12 +20,10 @@ export function TimetableTable() {
       return timetable
     },
   })
-  console.log("dataaaaaaaaaaa", data.data)
 
   const [weekSlot] = data.data.map((slot) => {
     return slot.program.weekSlot
   })
-  console.log("weekSlot", weekSlot)
 
   const [timeSlot] = data.data.map((slot) => {
     return slot.program.timeSlot
