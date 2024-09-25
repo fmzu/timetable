@@ -11,6 +11,9 @@ import {
 import { client } from "~/lib/client"
 
 export function TimetableTable() {
+  /**
+   * 個人向けのデータはuseSuspenseQueryで取得するのが向いている
+   */
   const data = useSuspenseQuery({
     queryKey: ["timetable"],
     async queryFn() {

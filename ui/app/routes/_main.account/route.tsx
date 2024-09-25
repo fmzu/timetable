@@ -5,6 +5,9 @@ import { Input } from "~/components/ui/input"
 import { client } from "~/lib/client"
 
 export default function Route() {
+  /**
+   * 個人向けのデータはuseSuspenseQueryで取得するのが向いている
+   */
   const data = useSuspenseQuery({
     queryKey: ["timetable"],
     async queryFn() {
