@@ -43,6 +43,7 @@ export const myUserRoutes = app
   )
   /**
    * 任意のユーザーを修正する
+   * パスワードの変更
    */
   .put("/my/user", async (c) => {
     return c.json({})
