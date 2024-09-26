@@ -33,7 +33,7 @@ export default function Route() {
   return (
     <main className="container p-4 space-y-4">
       <h1 className="text-xl">{data.name}</h1>
-      <Button>{"登録"}</Button>
+      <Button>{"追加"}</Button>
       <Button>{"削除"}</Button>
       <div>
         <p>{"授業概要: "}</p>
