@@ -61,6 +61,87 @@ export default function Route() {
     }
   }
 
+  const timeSlot = (timeSlot: number) => {
+    if (timeSlot === 0) {
+      return "1"
+    }
+
+    if (timeSlot === 1) {
+      return "2"
+    }
+
+    if (timeSlot === 2) {
+      return "3"
+    }
+
+    if (timeSlot === 3) {
+      return "4"
+    }
+
+    if (timeSlot === 4) {
+      return "5"
+    }
+
+    if (timeSlot === 5) {
+      return "6"
+    }
+
+    if (timeSlot === 6) {
+      return "7"
+    }
+  }
+
+  if (timeSlot === undefined) {
+    return null
+  }
+
+  const weekSlot = (weekSlot: number) => {
+    if (weekSlot === 0) {
+      return "月"
+    }
+
+    if (weekSlot === 1) {
+      return "火"
+    }
+
+    if (weekSlot === 2) {
+      return "水"
+    }
+
+    if (weekSlot === 3) {
+      return "木"
+    }
+
+    if (weekSlot === 4) {
+      return "金"
+    }
+
+    if (weekSlot === 5) {
+      return "土"
+    }
+
+    if (weekSlot === 6) {
+      return "日"
+    }
+  }
+
+  if (weekSlot === undefined) {
+    return null
+  }
+
+  const period = (period: number) => {
+    if (period === 0) {
+      return "前期"
+    }
+
+    if (period === 1) {
+      return "後期"
+    }
+  }
+
+  /**
+   * 授業時間枠、曜日枠、前期後期の実施期間を日本語に変換する
+   */
   return (
     <main className="p-4 container">
       <h1>{"授業一覧"}</h1>
@@ -105,10 +186,10 @@ export default function Route() {
                   <Link to={`/programs/${program.id}`}>{program.name}</Link>
                 </TableCell>
                 <TableCell className="border-r text-center">
-                  {program.timeSlot}
+                  {timeSlot(program.timeSlot)}
                 </TableCell>
                 <TableCell className="border-r text-center">
-                  {program.weekSlot}
+                  {weekSlot(program.weekSlot)}
                 </TableCell>
                 <TableCell className="border-r text-center">
                   {program.ownerId}
@@ -123,7 +204,7 @@ export default function Route() {
                   {program.year}
                 </TableCell>
                 <TableCell className="border-r text-center">
-                  {program.period}
+                  {period(program.period)}
                 </TableCell>
               </TableRow>
             ))}
