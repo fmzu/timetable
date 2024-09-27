@@ -1,5 +1,5 @@
 import { verifyAuth } from "@hono/auth-js"
-import { eq } from "drizzle-orm"
+import { and, eq } from "drizzle-orm"
 import { drizzle } from "drizzle-orm/d1"
 import { HTTPException } from "hono/http-exception"
 import { apiFactory } from "~/interface/api-factory"
@@ -44,7 +44,10 @@ export const myEnrollmentsRoutes = app
       }
 
       const myEnrollments = await db.query.enrollments.findMany({
-        where: eq(schema.enrollments.userId, user.id),
+        where: and(
+          eq(schema.enrollments.userId, user.id),
+          eq(schema.enrollments.isDeleted, false),
+        ),
         with: { program: true },
       })
 
