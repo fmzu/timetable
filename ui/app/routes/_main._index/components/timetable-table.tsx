@@ -1,4 +1,3 @@
-import { Link } from "@remix-run/react"
 import { useSuspenseQuery } from "@tanstack/react-query"
 import {
   Table,
@@ -25,11 +24,11 @@ export function TimetableTable() {
     },
   })
 
-  const [weekSlot] = data.data.map((slot) => {
+  const weekSlot = data.data.map((slot) => {
     return slot.program.weekSlot
   })
 
-  const [timeSlot] = data.data.map((slot) => {
+  const timeSlot = data.data.map((slot) => {
     return slot.program.timeSlot
   })
 
@@ -40,14 +39,14 @@ export function TimetableTable() {
    * @returns
    */
   const slot = (weekSlot: number, timeSlot: number) => {
-    const sum = weekSlot.toString() + timeSlot.toString()
-    return sum
-  }
+    const slot = data.data.find((slot) => {
+      return (
+        slot.program.weekSlot === weekSlot && slot.program.timeSlot === timeSlot
+      )
+    })
 
-  const [id] = data.data.map((slot) => {
-    return slot.program.id
-  })
-  console.log(id)
+    return slot ? slot.program.name : null
+  }
 
   return (
     <Table>
@@ -66,77 +65,73 @@ export function TimetableTable() {
       <TableBody>
         <TableRow>
           <TableCell className="border-r text-center">{"1"}</TableCell>
-          <TableCell className="border-r text-center">
-            <Link to={`/programs/${id}`}>
-              <p>{slot(0, 0)}</p>
-            </Link>
-          </TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{slot(0, 0)}</TableCell>
+          <TableCell className="border-r text-center">{slot(0, 1)}</TableCell>
+          <TableCell className="border-r text-center">{slot(0, 2)}</TableCell>
+          <TableCell className="border-r text-center">{slot(0, 3)}</TableCell>
+          <TableCell className="border-r text-center">{slot(0, 4)}</TableCell>
+          <TableCell className="border-r text-center">{slot(0, 5)}</TableCell>
+          <TableCell className="border-r text-center">{slot(0, 6)}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell className="border-r text-center">{"2"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{slot(1, 0)}</TableCell>
+          <TableCell className="border-r text-center">{slot(1, 1)}</TableCell>
+          <TableCell className="border-r text-center">{slot(1, 2)}</TableCell>
+          <TableCell className="border-r text-center">{slot(1, 3)}</TableCell>
+          <TableCell className="border-r text-center">{slot(1, 4)}</TableCell>
+          <TableCell className="border-r text-center">{slot(1, 5)}</TableCell>
+          <TableCell className="border-r text-center">{slot(1, 6)}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell className="border-r text-center">{"3"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{slot(2, 0)}</TableCell>
+          <TableCell className="border-r text-center">{slot(2, 1)}</TableCell>
+          <TableCell className="border-r text-center">{slot(2, 2)}</TableCell>
+          <TableCell className="border-r text-center">{slot(2, 3)}</TableCell>
+          <TableCell className="border-r text-center">{slot(2, 4)}</TableCell>
+          <TableCell className="border-r text-center">{slot(2, 5)}</TableCell>
+          <TableCell className="border-r text-center">{slot(2, 6)}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell className="border-r text-center">{"4"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{slot(3, 0)}</TableCell>
+          <TableCell className="border-r text-center">{slot(3, 1)}</TableCell>
+          <TableCell className="border-r text-center">{slot(3, 2)}</TableCell>
+          <TableCell className="border-r text-center">{slot(3, 3)}</TableCell>
+          <TableCell className="border-r text-center">{slot(3, 4)}</TableCell>
+          <TableCell className="border-r text-center">{slot(3, 5)}</TableCell>
+          <TableCell className="border-r text-center">{slot(3, 6)}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell className="border-r text-center">{"5"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{slot(4, 0)}</TableCell>
+          <TableCell className="border-r text-center">{slot(4, 1)}</TableCell>
+          <TableCell className="border-r text-center">{slot(4, 2)}</TableCell>
+          <TableCell className="border-r text-center">{slot(4, 3)}</TableCell>
+          <TableCell className="border-r text-center">{slot(4, 4)}</TableCell>
+          <TableCell className="border-r text-center">{slot(4, 5)}</TableCell>
+          <TableCell className="border-r text-center">{slot(4, 6)}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell className="border-r text-center">{"6"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{slot(5, 0)}</TableCell>
+          <TableCell className="border-r text-center">{slot(5, 1)}</TableCell>
+          <TableCell className="border-r text-center">{slot(5, 2)}</TableCell>
+          <TableCell className="border-r text-center">{slot(5, 3)}</TableCell>
+          <TableCell className="border-r text-center">{slot(5, 4)}</TableCell>
+          <TableCell className="border-r text-center">{slot(5, 5)}</TableCell>
+          <TableCell className="border-r text-center">{slot(5, 6)}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell className="border-r text-center">{"7"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
-          <TableCell className="border-r text-center">{"invoice"}</TableCell>
+          <TableCell className="border-r text-center">{slot(6, 0)}</TableCell>
+          <TableCell className="border-r text-center">{slot(6, 1)}</TableCell>
+          <TableCell className="border-r text-center">{slot(6, 2)}</TableCell>
+          <TableCell className="border-r text-center">{slot(6, 3)}</TableCell>
+          <TableCell className="border-r text-center">{slot(6, 4)}</TableCell>
+          <TableCell className="border-r text-center">{slot(6, 5)}</TableCell>
+          <TableCell className="border-r text-center">{slot(6, 6)}</TableCell>
         </TableRow>
       </TableBody>
     </Table>

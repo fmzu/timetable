@@ -27,6 +27,7 @@ export async function loader(args: LoaderFunctionArgs) {
 
 export default function Route() {
   const data = useLoaderData<typeof loader>()
+
   /**
    * 受講状況に応じて登録ボタンか削除ボタンのどちらかを表示する
    */
@@ -34,7 +35,7 @@ export default function Route() {
     <main className="container p-4 space-y-4">
       <h1 className="text-xl">{data.name}</h1>
       <Button>{"追加"}</Button>
-      <Button>{"削除"}</Button>
+      <Button onClick={() => {}}>{"削除"}</Button>
       <div>
         <p>{"授業概要: "}</p>
         <p>{data.overview}</p>
