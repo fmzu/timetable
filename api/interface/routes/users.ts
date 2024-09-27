@@ -37,7 +37,6 @@ export const usersRoutes = app
       const userUuid = crypto.randomUUID()
       /**
        * 0: 学生，1: 教員，2: 管理者
-       * あとでオブジェクトにする
        */
       const roll = 0
 

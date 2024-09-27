@@ -12,8 +12,13 @@ import { client } from "~/lib/client"
 export function TimetableTable() {
   /**
    * 個人向けのデータはuseSuspenseQueryで取得するのが向いている
+   * useSuspenseQueryは取得の時につかうもので、useMutationは更新、削除（変化する）の時に使う
    */
   const data = useSuspenseQuery({
+    /**
+     * キャッシュするためのキー
+     * ページごとに変える
+     */
     queryKey: ["timetable"],
     async queryFn() {
       const resp = await client.api.my.enrollments.$get()
@@ -25,7 +30,7 @@ export function TimetableTable() {
   })
 
   /**
-   * 数字の0と0を足して文字列の00を返す
+   * 数字から枠を指定して講義名を取得する
    * @param weekSlot
    * @param timeSlot
    * @returns

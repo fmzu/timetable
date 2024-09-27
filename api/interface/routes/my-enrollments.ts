@@ -60,33 +60,33 @@ export const myEnrollmentsRoutes = app
       return c.json(myEnrollmentsJson)
     },
   )
-  .delete("/my/enrollments/:enrollment", verifyAuth(), async (c) => {
-    const auth = c.get("authUser")
+// .delete("/my/enrollments/:enrollment", verifyAuth(), async (c) => {
+//   const auth = c.get("authUser")
 
-    const authUserEmail = auth.token?.email ?? null
+//   const authUserEmail = auth.token?.email ?? null
 
-    if (authUserEmail === null) {
-      throw new HTTPException(401, { message: "Unauthorized" })
-    }
+//   if (authUserEmail === null) {
+//     throw new HTTPException(401, { message: "Unauthorized" })
+//   }
 
-    const db = drizzle(c.env.DB, { schema })
+//   const db = drizzle(c.env.DB, { schema })
 
-    const user = await db
-      .select()
-      .from(schema.users)
-      .where(eq(schema.users.email, authUserEmail))
-      .get()
+//   const user = await db
+//     .select()
+//     .from(schema.users)
+//     .where(eq(schema.users.email, authUserEmail))
+//     .get()
 
-    if (user === undefined) {
-      throw new HTTPException(401, { message: "Unauthorized" })
-    }
+//   if (user === undefined) {
+//     throw new HTTPException(401, { message: "Unauthorized" })
+//   }
 
-    const enrollmentId = c.req.param("enrollment")
+//   const enrollmentId = c.req.param("enrollment")
 
-    await db
-      .update(schema.enrollments)
-      .set({ isDeleted: true })
-      .where(eq(schema.enrollments.id, enrollmentId))
+//   await db
+//     .update(schema.enrollments)
+//     .set({ isDeleted: true })
+//     .where(eq(schema.enrollments.id, enrollmentId))
 
-    return c.json({})
-  })
+//   return c.json({})
+// })

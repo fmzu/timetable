@@ -1,4 +1,5 @@
-import { eq } from "drizzle-orm"
+import { verifyAuth } from "@hono/auth-js"
+import { and, eq } from "drizzle-orm"
 import { drizzle } from "drizzle-orm/d1"
 import { HTTPException } from "hono/http-exception"
 import { schema } from "~/lib/schema"
@@ -31,20 +32,53 @@ export const programsRoutes = app
   /**
    * 任意の講義を取得する
    */
-  .get("/programs/:program", async (c) => {
-    const db = drizzle(c.env.DB, { schema })
+  .get(
+    "/programs/:program",
+    /**
+     * verifyAuth()がログイン認証を行っている
+     */
+    verifyAuth(),
+    async (c) => {
+      const db = drizzle(c.env.DB, { schema })
 
-    const programId = c.req.param("program")
+      const programId = c.req.param("program")
 
-    const program = await db.query.programs.findFirst({
-      where: eq(schema.programs.id, programId),
-    })
+      const auth = c.get("authUser")
 
-    if (program === undefined) {
-      throw new HTTPException(404, { message: "Not found" })
-    }
+      const authUserEmail = auth.token?.email ?? null
 
-    const programJson = { ...program }
+      if (authUserEmail === null) {
+        throw new HTTPException(401, { message: "Unauthorized" })
+      }
 
-    return c.json(programJson)
-  })
+      const user = await db
+        .select()
+        .from(schema.users)
+        .where(eq(schema.users.email, authUserEmail))
+        .get()
+
+      if (user === undefined) {
+        throw new HTTPException(401, { message: "Unauthorized" })
+      }
+
+      const program = await db.query.programs.findFirst({
+        where: eq(schema.programs.id, programId),
+        with: {
+          enrollments: {
+            where: and(
+              eq(schema.enrollments.userId, user.id),
+              eq(schema.enrollments.isDeleted, false),
+            ),
+          },
+        },
+      })
+
+      if (program === undefined) {
+        throw new HTTPException(404, { message: "Not found" })
+      }
+
+      const programJson = { ...program }
+
+      return c.json(programJson)
+    },
+  )

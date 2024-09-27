@@ -140,15 +140,40 @@ export const programEnrollmentsRoutes = app
   /**
    * 任意の登録を削除する
    */
-  .delete("/programs/:program/enrollments/:enrollment", async (c) => {
-    const db = drizzle(c.env.DB)
+  .delete(
+    "/programs/:program/enrollments/:enrollment",
+    /**
+     * ないとtokenがundefinedになるので二行目でエラーになる
+     */
+    verifyAuth(),
+    async (c) => {
+      const auth = c.get("authUser")
 
-    const enrollmentId = c.req.param("enrollment")
+      const authUserEmail = auth.token?.email ?? null
 
-    await db
-      .update(schema.enrollments)
-      .set({ isDeleted: true })
-      .where(eq(schema.enrollments.id, enrollmentId))
+      if (authUserEmail === null) {
+        throw new HTTPException(401, { message: "Unauthorized" })
+      }
 
-    return c.json({})
-  })
+      const db = drizzle(c.env.DB, { schema })
+
+      const user = await db
+        .select()
+        .from(schema.users)
+        .where(eq(schema.users.email, authUserEmail))
+        .get()
+
+      if (user === undefined) {
+        throw new HTTPException(401, { message: "Unauthorized" })
+      }
+
+      const enrollmentId = c.req.param("enrollment")
+
+      await db
+        .update(schema.enrollments)
+        .set({ isDeleted: true })
+        .where(eq(schema.enrollments.id, enrollmentId))
+
+      return c.json({})
+    },
+  )

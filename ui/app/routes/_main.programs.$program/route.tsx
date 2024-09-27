@@ -1,48 +1,102 @@
-import { type LoaderFunctionArgs, json } from "@remix-run/cloudflare"
-import { useLoaderData } from "@remix-run/react"
+import { useParams } from "@remix-run/react"
+import { useMutation, useSuspenseQuery } from "@tanstack/react-query"
+import type { InferRequestType, InferResponseType } from "hono/client"
 import { Button } from "~/components/ui/button"
-import { loaderClient } from "~/lib/loader-client"
+import { client } from "~/lib/client"
 
 /**
  * 授業の詳細ページ
  * @returns
  */
-export async function loader(args: LoaderFunctionArgs) {
-  if (!args.params.program) {
+export default function Route() {
+  /**
+   * パラメータから授業IDを取得する
+   * パラメータにはプログラムIDの文字列のみが入る（型定義）
+   */
+  const params = useParams<"program">()
+
+  const programId = params.program
+  /**
+   * パラメータがプログラムをもっていない場合はエラーを返す
+   */
+  if (programId === undefined) {
     throw new Error("Post not found")
   }
 
-  const client = loaderClient(
-    args.context.cloudflare.env.API.fetch.bind(args.context.cloudflare.env.API),
-  )
+  const data = useSuspenseQuery({
+    /**
+     * キャッシュするためのキー
+     * ページごとに変える
+     */
+    queryKey: ["programs", programId],
+    async queryFn() {
+      const resp = await client.api.programs[":program"].$get({
+        param: { program: programId },
+      })
 
-  const resp = await client.api.programs[":program"].$get({
-    param: { program: args.params.program },
+      const program = await resp.json()
+
+      return program
+    },
   })
 
-  const program = await resp.json()
+  const endpoint = client.api.programs[":program"].enrollments[":enrollment"]
 
-  return json(program)
-}
+  const mutation = useMutation<
+    InferResponseType<typeof endpoint.$delete>,
+    Error,
+    InferRequestType<typeof endpoint.$delete>
+  >({
+    async mutationFn(props) {
+      const resp = await endpoint.$delete({
+        param: props.param,
+      })
 
-export default function Route() {
-  const data = useLoaderData<typeof loader>()
+      return await resp.json()
+    },
+  })
+
+  /**
+   * 受講状況を持っているかどうか
+   */
+  const hasEnrollment = data.data.enrollments.length > 0
+
+  const onDelete = async (programId: string) => {
+    const enrollmentId = data.data.enrollments[0].id
+    console.log("en", enrollmentId)
+
+    await mutation.mutateAsync({
+      param: { program: programId, enrollment: enrollmentId },
+    })
+    alert("登録解除しました")
+
+    data.refetch()
+  }
 
   /**
    * 受講状況に応じて登録ボタンか削除ボタンのどちらかを表示する
    */
   return (
     <main className="container p-4 space-y-4">
-      <h1 className="text-xl">{data.name}</h1>
-      <Button>{"追加"}</Button>
-      <Button onClick={() => {}}>{"削除"}</Button>
+      <h1 className="text-xl">{data.data.name}</h1>
+      {hasEnrollment ? (
+        <Button
+          onClick={() => {
+            onDelete(data.data.id)
+          }}
+        >
+          {"登録解除"}
+        </Button>
+      ) : (
+        <Button>{"登録"}</Button>
+      )}
       <div>
         <p>{"授業概要: "}</p>
-        <p>{data.overview}</p>
+        <p>{data.data.overview}</p>
       </div>
-      <p className="text-sm">{`実施時期: ${data.period}`}</p>
-      <p className="text-sm">{`単位数: ${data.unitsCount}`}</p>
-      <p className="text-sm">{`実施時間: ${data.weekSlot}曜日 ${data.timeSlot}時間目`}</p>
+      <p className="text-sm">{`実施時期: ${data.data.period}`}</p>
+      <p className="text-sm">{`単位数: ${data.data.unitsCount}`}</p>
+      <p className="text-sm">{`実施時間: ${data.data.weekSlot}曜日 ${data.data.timeSlot}時間目`}</p>
     </main>
   )
 }

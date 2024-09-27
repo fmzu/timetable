@@ -12,6 +12,8 @@ export function UserRegistrationCard() {
 
   const [role, setRole] = useState(0)
 
+  const [name, setName] = useState("")
+
   const mutation = useMutation({
     async mutationFn() {
       const resp = await client.api.users.$post({

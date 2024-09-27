@@ -9,7 +9,11 @@ export default function Route() {
    * 個人向けのデータはuseSuspenseQueryで取得するのが向いている
    */
   const data = useSuspenseQuery({
-    queryKey: ["timetable"],
+    /**
+     * キャッシュするためのキー
+     * ページごとに変える
+     */
+    queryKey: ["password"],
     async queryFn() {
       const resp = await client.api.my.user.$get()
 

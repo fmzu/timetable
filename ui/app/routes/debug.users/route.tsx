@@ -1,4 +1,3 @@
-import {} from "~/components/ui/table"
 import { UserRegistrationCard } from "~/routes/debug.users/components/user-registration-card"
 
 export default function Route() {

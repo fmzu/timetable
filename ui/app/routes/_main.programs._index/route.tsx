@@ -146,32 +146,24 @@ export default function Route() {
     <main className="p-4 container">
       <h1>{"授業一覧"}</h1>
       <Card>
-        <Table className="whitespace-nowrap">
+        <Table className="whitespace-nowrap border-collapse">
           <TableHeader>
             <TableRow>
-              <TableHead className="border-r text-center">{""}</TableHead>
-              <TableHead className="border-r text-center">{"講義名"}</TableHead>
-              <TableHead className="border-r text-center">{"時間枠"}</TableHead>
-              <TableHead className="border-r text-center">{"曜日"}</TableHead>
-              <TableHead className="border-r text-center">
-                {"担当教員"}
-              </TableHead>
-              <TableHead className="border-r text-center">{"単位数"}</TableHead>
-              <TableHead className="border-r text-center">
-                {"授業概要"}
-              </TableHead>
-              <TableHead className="border-r text-center">
-                {"実施年度"}
-              </TableHead>
-              <TableHead className="border-r text-center">
-                {"実施時期"}
-              </TableHead>
+              <TableHead className="border text-center">{""}</TableHead>
+              <TableHead className="border text-center">{"講義名"}</TableHead>
+              <TableHead className="border text-center">{"時間枠"}</TableHead>
+              <TableHead className="border text-center">{"曜日"}</TableHead>
+              <TableHead className="border text-center">{"担当教員"}</TableHead>
+              <TableHead className="border text-center">{"単位数"}</TableHead>
+              <TableHead className="border text-center">{"授業概要"}</TableHead>
+              <TableHead className="border text-center">{"実施年度"}</TableHead>
+              <TableHead className="border text-center">{"実施時期"}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {data.map((program) => (
               <TableRow key={program.id}>
-                <TableCell className="border-r text-center">
+                <TableCell className="border text-center">
                   <form
                     className="space-y-2"
                     onSubmit={(event) => {
@@ -181,29 +173,30 @@ export default function Route() {
                   >
                     <Button>{"追加"}</Button>
                   </form>
+                  <Button>{"削除"}</Button>
                 </TableCell>
-                <TableCell className="border-r text-center">
+                <TableCell className="border text-center">
                   <Link to={`/programs/${program.id}`}>{program.name}</Link>
                 </TableCell>
-                <TableCell className="border-r text-center">
+                <TableCell className="border text-center">
                   {timeSlot(program.timeSlot)}
                 </TableCell>
-                <TableCell className="border-r text-center">
+                <TableCell className="border text-center">
                   {weekSlot(program.weekSlot)}
                 </TableCell>
-                <TableCell className="border-r text-center">
+                <TableCell className="border text-center">
                   {program.ownerId}
                 </TableCell>
-                <TableCell className="border-r text-center">
+                <TableCell className="border text-center">
                   {program.unitsCount}
                 </TableCell>
-                <TableCell className="border-r text-center">
+                <TableCell className="border text-center">
                   {program.overview}
                 </TableCell>
-                <TableCell className="border-r text-center">
+                <TableCell className="border text-center">
                   {program.year}
                 </TableCell>
-                <TableCell className="border-r text-center">
+                <TableCell className="border text-center">
                   {period(program.period)}
                 </TableCell>
               </TableRow>
