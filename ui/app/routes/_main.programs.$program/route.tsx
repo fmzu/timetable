@@ -42,7 +42,7 @@ export default function Route() {
 
   const endpoint = client.api.programs[":program"].enrollments[":enrollment"]
 
-  const mutation = useMutation<
+  const deleteMutation = useMutation<
     InferResponseType<typeof endpoint.$delete>,
     Error,
     InferRequestType<typeof endpoint.$delete>
@@ -55,6 +55,36 @@ export default function Route() {
       return await resp.json()
     },
   })
+  const addEndpoint = client.api.programs[":program"].enrollments
+
+  const addMutation = useMutation<
+    InferResponseType<typeof addEndpoint.$post>,
+    Error,
+    InferRequestType<typeof addEndpoint.$post>
+  >({
+    async mutationFn(props) {
+      const resp = await addEndpoint.$post({
+        param: {
+          program: props.param.program,
+        },
+      })
+
+      const json = await resp.json()
+
+      return json
+    },
+  })
+
+  const onSubmit = async (programId: string) => {
+    const result = await addMutation.mutateAsync({
+      param: { program: programId },
+    })
+    alert("登録しました")
+
+    if (result === null) {
+      return
+    }
+  }
 
   /**
    * 受講状況を持っているかどうか
@@ -65,12 +95,90 @@ export default function Route() {
     const enrollmentId = data.data.enrollments[0].id
     console.log("en", enrollmentId)
 
-    await mutation.mutateAsync({
+    await deleteMutation.mutateAsync({
       param: { program: programId, enrollment: enrollmentId },
     })
     alert("登録解除しました")
 
     data.refetch()
+  }
+
+  const timeSlot = (timeSlot: number) => {
+    if (timeSlot === 0) {
+      return "1"
+    }
+
+    if (timeSlot === 1) {
+      return "2"
+    }
+
+    if (timeSlot === 2) {
+      return "3"
+    }
+
+    if (timeSlot === 3) {
+      return "4"
+    }
+
+    if (timeSlot === 4) {
+      return "5"
+    }
+
+    if (timeSlot === 5) {
+      return "6"
+    }
+
+    if (timeSlot === 6) {
+      return "7"
+    }
+  }
+
+  if (timeSlot === undefined) {
+    return null
+  }
+
+  const weekSlot = (weekSlot: number) => {
+    if (weekSlot === 0) {
+      return "月"
+    }
+
+    if (weekSlot === 1) {
+      return "火"
+    }
+
+    if (weekSlot === 2) {
+      return "水"
+    }
+
+    if (weekSlot === 3) {
+      return "木"
+    }
+
+    if (weekSlot === 4) {
+      return "金"
+    }
+
+    if (weekSlot === 5) {
+      return "土"
+    }
+
+    if (weekSlot === 6) {
+      return "日"
+    }
+  }
+
+  if (weekSlot === undefined) {
+    return null
+  }
+
+  const period = (period: number) => {
+    if (period === 0) {
+      return "前期"
+    }
+
+    if (period === 1) {
+      return "後期"
+    }
   }
 
   /**
@@ -88,15 +196,21 @@ export default function Route() {
           {"登録解除"}
         </Button>
       ) : (
-        <Button>{"登録"}</Button>
+        <Button
+          onClick={() => {
+            onSubmit(data.data.id)
+          }}
+        >
+          {"登録"}
+        </Button>
       )}
       <div>
         <p>{"授業概要: "}</p>
         <p>{data.data.overview}</p>
       </div>
-      <p className="text-sm">{`実施時期: ${data.data.period}`}</p>
+      <p className="text-sm">{`実施時期: ${period(data.data.period)}`}</p>
       <p className="text-sm">{`単位数: ${data.data.unitsCount}`}</p>
-      <p className="text-sm">{`実施時間: ${data.data.weekSlot}曜日 ${data.data.timeSlot}時間目`}</p>
+      <p className="text-sm">{`実施時間: ${weekSlot(data.data.weekSlot)}曜日 ${timeSlot(data.data.timeSlot)}時間目`}</p>
     </main>
   )
 }
