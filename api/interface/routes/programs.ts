@@ -70,6 +70,7 @@ export const programsRoutes = app
               eq(schema.enrollments.isDeleted, false),
             ),
           },
+          owner: true,
         },
       })
 

@@ -22,6 +22,7 @@ export const debugUsersRoutes = app
       object({
         email: string(),
         password: string(),
+        name: string(),
         role: number(),
       }),
     ),
@@ -41,7 +42,7 @@ export const debugUsersRoutes = app
         email: json.email,
         hashedPassword: hashedPassword,
         login: crypto.randomUUID(),
-        name: crypto.randomUUID(),
+        name: json.name,
         role: json.role,
       })
 

@@ -208,7 +208,7 @@ export default function Route() {
         <p className="text-sm">{"授業概要: "}</p>
         <p>{data.data.overview}</p>
       </div>
-      <p className="text-sm">{"担当教員: "}</p>
+      <p className="text-sm">{`担当教員: ${data.data.owner.name}`}</p>
       <p className="text-sm">{`実施時期: ${period(data.data.period)}`}</p>
       <p className="text-sm">{`単位数: ${data.data.unitsCount}`}</p>
       <p className="text-sm">{`実施時間: ${weekSlot(data.data.weekSlot)}曜日 ${timeSlot(data.data.timeSlot)}時間目`}</p>

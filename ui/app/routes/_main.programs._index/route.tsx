@@ -184,7 +184,7 @@ export default function Route() {
                   {weekSlot(program.weekSlot)}
                 </TableCell>
                 <TableCell className="border text-center">
-                  {program.ownerId}
+                  {program.owner.name}
                 </TableCell>
                 <TableCell className="border text-center">
                   {program.unitsCount}
