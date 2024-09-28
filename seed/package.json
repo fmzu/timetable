@@ -1,0 +1,5 @@
+{
+  "name": "seed",
+  "module": "index.ts",
+  "type": "module"
+}

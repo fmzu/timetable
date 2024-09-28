@@ -1,5 +1,6 @@
 import {} from "@remix-run/cloudflare"
-import { useMutation, useSuspenseQuery } from "@tanstack/react-query"
+import { useNavigate } from "@remix-run/react"
+import { useMutation } from "@tanstack/react-query"
 import type { InferRequestType, InferResponseType } from "hono/client"
 import { useState } from "react"
 import { Button } from "~/components/ui/button"
@@ -7,23 +8,7 @@ import { Input } from "~/components/ui/input"
 import { client } from "~/lib/client"
 
 export default function Route() {
-  /**
-   * 個人向けのデータはuseSuspenseQueryで取得するのが向いている
-   */
-  const data = useSuspenseQuery({
-    /**
-     * キャッシュするためのキー
-     * ページごとに変える
-     */
-    queryKey: ["password"],
-    async queryFn() {
-      const resp = await client.api.my.user.$get()
-
-      const timetable = await resp.json()
-
-      return timetable
-    },
-  })
+  const navigate = useNavigate()
 
   const endpoint = client.api.my.user
 
@@ -56,6 +41,7 @@ export default function Route() {
     alert("パスワードを変更しました")
 
     if (result === null) {
+      navigate("/")
       return
     }
   }
