@@ -50,6 +50,11 @@ export const myUserRoutes = app
    */
   .put(
     "/my/user",
+    /**
+     * verifyAuth()はバリデートの前じゃないとエラー出る！↓
+     * TypeError: This ReadableStream is disturbed (has already been read from), and cannot be used as a body.
+     */
+    verifyAuth(),
     vValidator(
       "json",
       object({
@@ -59,25 +64,28 @@ export const myUserRoutes = app
     verifyAuth(),
     async (c) => {
       const json = c.req.valid("json")
+      console.log("A", json)
 
       const db = drizzle(c.env.DB, { schema })
+      console.log("B", db)
 
       const auth = c.get("authUser")
+      console.log("C", auth)
 
       const authUserEmail = auth.token?.email ?? null
-
+      console.log("D", authUserEmail)
       if (authUserEmail === null) {
         throw new HTTPException(401, { message: "Unauthorized" })
       }
-
+      console.log("E", authUserEmail)
       const user = await db.query.users.findFirst({
         where: eq(schema.users.email, authUserEmail),
       })
-
+      console.log("F", user)
       if (user === undefined) {
         throw new HTTPException(404, { message: "Not found" })
       }
-
+      console.log("G", user)
       /**
        * パスワードをハッシュ化する
        */

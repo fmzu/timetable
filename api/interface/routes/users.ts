@@ -107,7 +107,7 @@ export const usersRoutes = app
   /**
    * アカウントを削除する
    */
-  .put("/:user", async (c) => {
+  .delete("/:user", async (c) => {
     const db = drizzle(c.env.DB)
 
     const userId = c.req.param("user")

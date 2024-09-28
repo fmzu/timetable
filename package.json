@@ -12,5 +12,10 @@
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
-  "workspaces": ["*"]
+  "workspaces": ["*"],
+  "dependencies": {
+    "@hono/valibot-validator": "^0.3.1",
+    "@hono/zod-validator": "^0.3.0",
+    "hono": "^4.6.3"
+  }
 }
