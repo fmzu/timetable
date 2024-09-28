@@ -21,7 +21,7 @@ export default function Route() {
           <TabsTrigger value={"latePeriod"}>{"後期"}</TabsTrigger>
         </TabsList>
         <TabsContent value={"earlyPeriod"}>
-          <h1>{"2024年度前期時間割"}</h1>
+          <h1>{"前期時間割"}</h1>
           <Suspense>
             <Card>
               <EarlyTimetableTable />
@@ -29,7 +29,7 @@ export default function Route() {
           </Suspense>
         </TabsContent>
         <TabsContent value={"latePeriod"}>
-          <h1>{"2024年度後期時間割"}</h1>
+          <h1>{"後期時間割"}</h1>
           <Suspense>
             <Card>
               <LateTimetableTable />
