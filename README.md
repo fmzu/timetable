@@ -52,3 +52,15 @@ bun iするときは--cwdを使う
 ```
 bun i --cwd ui react
 ```
+
+## ログイン可能
+
+```
+email: a@hascii.com
+password: 1234
+```
+
+```
+email: b@hascii.com
+password: 1234
+```
