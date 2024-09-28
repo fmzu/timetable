@@ -1,5 +1,5 @@
 import { verifyAuth } from "@hono/auth-js"
-import { eq } from "drizzle-orm"
+import { and, eq } from "drizzle-orm"
 import { drizzle } from "drizzle-orm/d1"
 import { HTTPException } from "hono/http-exception"
 import { apiFactory } from "~/interface/api-factory"
@@ -47,6 +47,25 @@ export const programEnrollmentsRoutes = app
       }
 
       const programId = c.req.param("program")
+
+      if (programId === undefined) {
+        throw new HTTPException(400, { message: "Bad Request" })
+      }
+
+      const enrollment = await db
+        .select()
+        .from(schema.enrollments)
+        .where(
+          and(
+            eq(schema.enrollments.userId, user.id),
+            eq(schema.enrollments.programId, programId),
+          ),
+        )
+        .get()
+
+      if (enrollment !== undefined) {
+        return c.json({})
+      }
 
       await db.insert(schema.enrollments).values({
         id: crypto.randomUUID(),

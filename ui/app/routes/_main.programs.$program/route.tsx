@@ -55,6 +55,7 @@ export default function Route() {
       return await resp.json()
     },
   })
+
   const addEndpoint = client.api.programs[":program"].enrollments
 
   const addMutation = useMutation<
@@ -93,7 +94,6 @@ export default function Route() {
 
   const onDelete = async (programId: string) => {
     const enrollmentId = data.data.enrollments[0].id
-    console.log("en", enrollmentId)
 
     await deleteMutation.mutateAsync({
       param: { program: programId, enrollment: enrollmentId },

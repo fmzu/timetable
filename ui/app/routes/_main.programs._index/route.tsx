@@ -27,18 +27,18 @@ export async function loader(args: LoaderFunctionArgs) {
   return json(programs)
 }
 
-const endpoint = client.api.programs[":program"].enrollments
+const addEndpoint = client.api.programs[":program"].enrollments
 
 export default function Route() {
-  const data = useLoaderData<typeof loader>()
+  const programsData = useLoaderData<typeof loader>()
 
-  const mutation = useMutation<
-    InferResponseType<typeof endpoint.$post>,
+  const addMutation = useMutation<
+    InferResponseType<typeof addEndpoint.$post>,
     Error,
-    InferRequestType<typeof endpoint.$post>
+    InferRequestType<typeof addEndpoint.$post>
   >({
     async mutationFn(props) {
-      const resp = await endpoint.$post({
+      const resp = await addEndpoint.$post({
         param: {
           program: props.param.program,
         },
@@ -51,7 +51,7 @@ export default function Route() {
   })
 
   const onSubmit = async (programId: string) => {
-    const result = await mutation.mutateAsync({
+    const result = await addMutation.mutateAsync({
       param: { program: programId },
     })
     alert("登録しました")
@@ -161,7 +161,7 @@ export default function Route() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {data.map((program) => (
+            {programsData.map((program) => (
               <TableRow key={program.id}>
                 <TableCell className="border text-center">
                   <form
@@ -173,7 +173,6 @@ export default function Route() {
                   >
                     <Button>{"追加"}</Button>
                   </form>
-                  <Button>{"削除"}</Button>
                 </TableCell>
                 <TableCell className="border text-center">
                   <Link to={`/programs/${program.id}`}>{program.name}</Link>
