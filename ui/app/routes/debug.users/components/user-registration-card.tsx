@@ -16,10 +16,12 @@ export function UserRegistrationCard() {
 
   const mutation = useMutation({
     async mutationFn() {
-      const resp = await client.api.users.$post({
+      const resp = await client.api.debug.users.$post({
         json: {
           email: loginId,
           password: password,
+          name: name,
+          role: role,
         },
       })
       const json = await resp.json()
@@ -59,6 +61,14 @@ export function UserRegistrationCard() {
           value={password}
           onChange={(event) => {
             setPassword(event.target.value)
+          }}
+        />
+        <Input
+          type={"text"}
+          placeholder="名前"
+          value={name}
+          onChange={(event) => {
+            setName(event.target.value)
           }}
         />
         <Input
