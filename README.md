@@ -64,3 +64,7 @@ password: 1234
 email: b@hascii.com
 password: 1234
 ```
+
+## 残り課題
+
+- [ ] 時間割の欄同じ時間に複数個授業があった場合の処理
