@@ -27,7 +27,5 @@ export const weekSlot = (weekSlot: number) => {
     return "日"
   }
 
-  if (weekSlot === undefined) {
-    return null
-  }
+  throw new Error("Invalid weekSlot")
 }

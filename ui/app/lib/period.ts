@@ -7,7 +7,5 @@ export const period = (period: number) => {
     return "後期"
   }
 
-  if (period === undefined) {
-    return null
-  }
+  throw new Error("Invalid period")
 }

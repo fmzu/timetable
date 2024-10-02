@@ -27,7 +27,5 @@ export const timeSlot = (timeSlot: number) => {
     return "7"
   }
 
-  if (timeSlot === undefined) {
-    return null
-  }
+  throw new Error("Invalid timeSlot")
 }
