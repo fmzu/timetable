@@ -22,7 +22,7 @@ const chat = await openai.beta.chat.completions.parse({
   messages: [
     {
       role: "system",
-      content: "日本人のちょっと変わった名前の大学教員を16人出力してください",
+      content: "日本人のちょっと変わった名前の大学教員を8人出力してください",
     },
   ],
   response_format: zodResponseFormat(schema, "schema"),

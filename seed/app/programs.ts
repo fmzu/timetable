@@ -4,7 +4,7 @@ import { zodResponseFormat } from "openai/helpers/zod.mjs"
 import { array, object, string } from "zod"
 import type { Api } from "~/../api"
 
-const client = hc<Api>("https://timetable-ui.pages.dev")
+const client = hc<Api>("http://localhost:5173/")
 
 const resp = await client.api.debug.users.$get({
   query: {
