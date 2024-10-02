@@ -52,6 +52,9 @@ export const programEnrollmentsRoutes = app
         throw new HTTPException(400, { message: "Bad Request" })
       }
 
+      /**
+       * すでに登録されているかどうかを確認する
+       */
       const enrollment = await db
         .select()
         .from(schema.enrollments)
@@ -59,10 +62,13 @@ export const programEnrollmentsRoutes = app
           and(
             eq(schema.enrollments.userId, user.id),
             eq(schema.enrollments.programId, programId),
+            eq(schema.enrollments.isDeleted, false),
           ),
         )
+        // 一つのみ取得する。なかったら配列になる
         .get()
 
+      // すでに登録されている場合は何もしない
       if (enrollment !== undefined) {
         return c.json({})
       }

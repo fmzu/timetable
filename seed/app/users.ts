@@ -37,7 +37,7 @@ if (jsonText === null) {
 const result = schema.parse(JSON.parse(jsonText))
 console.log(result)
 
-const client = hc<Api>("https://timetable-ui.pages.dev")
+const client = hc<Api>("http://localhost:5173/")
 
 for (const user of result.users) {
   await client.api.debug.users.$post({
