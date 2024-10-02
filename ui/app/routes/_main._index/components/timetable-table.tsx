@@ -10,7 +10,11 @@ import {
 import { client } from "~/lib/client"
 import { ProgramSlot } from "~/routes/_main._index/components/program-slot"
 
-export function EarlyTimetableTable() {
+type Props = {
+  period: number
+}
+
+export function TimetableTable(props: Props) {
   /**
    * 個人向けのデータはuseSuspenseQueryで取得するのが向いている
    * useSuspenseQueryは取得の時につかうもので、useMutationは更新、削除（変化する）の時に使う
@@ -43,7 +47,7 @@ export function EarlyTimetableTable() {
       )
     })
 
-    const slot = slots.find((slot) => slot.program.period === 0)
+    const slot = slots.find((slot) => slot.program.period === props.period)
 
     if (slot === undefined) {
       return []

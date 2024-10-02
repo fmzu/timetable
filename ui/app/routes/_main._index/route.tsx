@@ -1,9 +1,9 @@
 import type { MetaFunction } from "@remix-run/node"
 import { Suspense } from "react"
+import { Button } from "~/components/ui/button"
 import { Card } from "~/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
-import { LateTimetableTable } from "~/routes/_main._index/components/late-timetable-table"
-import { EarlyTimetableTable } from "./components/early-timetable-table"
+import { TimetableTable } from "./components/timetable-table"
 
 export const meta: MetaFunction = () => {
   return [
@@ -20,21 +20,23 @@ export default function Route() {
           <TabsTrigger value={"earlyPeriod"}>{"前期"}</TabsTrigger>
           <TabsTrigger value={"latePeriod"}>{"後期"}</TabsTrigger>
         </TabsList>
-        <TabsContent value={"earlyPeriod"}>
+        <TabsContent value={"earlyPeriod"} className="space-y-4">
           <h1>{"前期時間割"}</h1>
           <Suspense>
             <Card>
-              <EarlyTimetableTable />
+              <TimetableTable period={0} />
             </Card>
           </Suspense>
+          <Button className="flex-1 w-full">{"決定"}</Button>
         </TabsContent>
-        <TabsContent value={"latePeriod"}>
+        <TabsContent value={"latePeriod"} className="space-y-4">
           <h1>{"後期時間割"}</h1>
           <Suspense>
             <Card>
-              <LateTimetableTable />
+              <TimetableTable period={1} />
             </Card>
           </Suspense>
+          <Button className="flex-1 w-full">{"決定"}</Button>
         </TabsContent>
       </Tabs>
     </div>
