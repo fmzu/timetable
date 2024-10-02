@@ -541,3 +541,90 @@ export function TimetableTable(props: Props) {
     </Table>
   )
 }
+
+// GPTがかいたコード
+// import { useSuspenseQuery } from "@tanstack/react-query"
+// import {
+//   Table,
+//   TableBody,
+//   TableCell,
+//   TableHead,
+//   TableHeader,
+//   TableRow,
+// } from "~/components/ui/table"
+// import { client } from "~/lib/client"
+// import { ProgramSlot } from "~/routes/_main._index/components/program-slot"
+
+// type Props = {
+//   period: number
+// }
+
+// export function TimetableTable(props: Props) {
+//   const data = useSuspenseQuery({
+//     queryKey: ["timetable"],
+//     async queryFn() {
+//       const resp = await client.api.my.enrollments.$get()
+//       const timetable = await resp.json()
+//       return timetable
+//     },
+//   })
+
+//   const slots = (weekSlot: number, timeSlot: number) => {
+//     const slots = data.data.filter((slot) => {
+//       return (
+//         slot.program.weekSlot === weekSlot && slot.program.timeSlot === timeSlot
+//       )
+//     })
+
+//     const slot = slots.find((slot) => slot.program.period === props.period)
+
+//     if (slot === undefined) {
+//       return []
+//     }
+
+//     return slots ? slots : []
+//   }
+
+//   const renderSlots = (weekSlot: number, timeSlot: number) => {
+//     const slotList = slots(weekSlot, timeSlot)
+//     const isMultipleSlots = slotList.length > 1
+
+//     return slotList.map((slot) => (
+//       <ProgramSlot
+//         id={slot.program.id}
+//         name={slot.program.name}
+//         key={slot.id}
+//         style={{ color: isMultipleSlots ? 'red' : 'black' }}
+//       />
+//     ))
+//   }
+
+//   return (
+//     <Table className="border-collapse">
+//       <TableHeader>
+//         <TableRow className="grid grid-cols-8">
+//           <TableHead className="border text-center">{""}</TableHead>
+//           <TableHead className="border text-center">{"月"}</TableHead>
+//           <TableHead className="border text-center">{"火"}</TableHead>
+//           <TableHead className="border text-center">{"水"}</TableHead>
+//           <TableHead className="border text-center">{"木"}</TableHead>
+//           <TableHead className="border text-center">{"金"}</TableHead>
+//           <TableHead className="border text-center">{"土"}</TableHead>
+//           <TableHead className="border text-center">{"日"}</TableHead>
+//         </TableRow>
+//       </TableHeader>
+//       <TableBody>
+//         {[...Array(7)].map((_, rowIndex) => (
+//           <TableRow key={rowIndex} className="grid grid-cols-8">
+//             <TableCell className="border text-center">{rowIndex + 1}</TableCell>
+//             {[...Array(7)].map((_, colIndex) => (
+//               <TableCell key={colIndex} className="border text-center">
+//                 {renderSlots(rowIndex, colIndex)}
+//               </TableCell>
+//             ))}
+//           </TableRow>
+//         ))}
+//       </TableBody>
+//     </Table>
+//   )
+// }
