@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node"
+import type { MetaFunction } from "@remix-run/cloudflare"
 import { useSuspenseQuery } from "@tanstack/react-query"
 import { Suspense } from "react"
 import { Card } from "~/components/ui/card"
@@ -49,6 +49,7 @@ export default function Route() {
 
   const renderSlots = (weekSlot: number, timeSlot: number, period: number) => {
     const slotList = slots(weekSlot, timeSlot, period)
+
     const isMultipleSlots = slotList.length > 1
 
     return slotList.map((slot) => (
@@ -171,7 +172,7 @@ export default function Route() {
                         <TableCell
                           // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
                           key={colIndex}
-                          className="border text-center items-center flex justify-center p-2"
+                          className="border text-center p-2"
                         >
                           {renderSlots(rowIndex, colIndex, 0)}
                         </TableCell>
@@ -238,7 +239,7 @@ export default function Route() {
                         <TableCell
                           // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
                           key={colIndex}
-                          className="border text-center items-center flex justify-center p-2"
+                          className="border text-center p-2"
                         >
                           {renderSlots(rowIndex, colIndex, 1)}
                         </TableCell>
