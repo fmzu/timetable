@@ -17,6 +17,9 @@ export const programsRoutes = app
   .get("/programs", async (c) => {
     const db = drizzle(c.env.DB, { schema })
 
+    /**
+     * , { schema }を追加することでデータベースにスキーマ情報を渡すことができる
+     */
     const programs = await db.query.programs.findMany({
       with: { owner: true },
     })
