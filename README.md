@@ -29,6 +29,12 @@ password: 1234
 
 - [x] 時間割の欄同じ時間に複数個授業があった場合の処理
 
+### DBの作成
+
+```
+bun --cwd api wrangler d1 create timetable
+```
+
 ## 開発
 
 Bunをインストールする。
@@ -82,10 +88,4 @@ bun run --cwd ui deploy
 
 ```
 bun --cwd api wrangler d1 migrations apply timetable --remote
-```
-
-### DBの作成
-
-```
-bun --cwd api wrangler d1 create timetable
 ```
