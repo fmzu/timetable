@@ -5,7 +5,6 @@ import { Button } from "~/components/ui/button"
 export default function MainHeader() {
   // 今いるページを取得する
   const location = useLocation()
-  console.log("A", location)
 
   // 今いるページと同じパスのボタンを黒くする
 

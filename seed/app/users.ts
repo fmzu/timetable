@@ -35,7 +35,6 @@ if (jsonText === null) {
 }
 
 const result = schema.parse(JSON.parse(jsonText))
-console.log(result)
 
 const client = hc<Api>("http://localhost:5173/")
 
