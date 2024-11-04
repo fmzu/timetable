@@ -61,7 +61,6 @@ export const myUserRoutes = app
         password: string(),
       }),
     ),
-    verifyAuth(),
     async (c) => {
       const json = c.req.valid("json")
 
